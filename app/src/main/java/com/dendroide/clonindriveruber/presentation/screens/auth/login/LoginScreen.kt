@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -17,7 +18,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -33,9 +40,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dendroide.clonindriveruber.R
+import com.dendroide.clonindriveruber.presentation.components.DefaultTextField
 
 @Composable
 fun LoginScreen() {
@@ -93,7 +102,9 @@ fun LoginScreen() {
                         ), shape = RoundedCornerShape(topStart = 35.dp, bottomStart = 35.dp)
                     )
             ) {
-                Column(modifier = Modifier.statusBarsPadding()) {
+                Column(modifier = Modifier
+                    .statusBarsPadding()
+                    .padding(start = 25.dp)) {
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = "Welcome",
@@ -107,11 +118,17 @@ fun LoginScreen() {
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    Image(
-                        modifier = Modifier.size(150.dp),
-                        painter = painterResource(id = R.drawable.car_white),
-                        contentDescription = ""
-                    )
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 15.dp)){
+                        Image(
+                            modifier = Modifier
+                                .size(200.dp)
+                                .align(Alignment.CenterEnd),
+                            painter = painterResource(id = R.drawable.car_white),
+                            contentDescription = ""
+                        )
+                    }
 
                     Text(
                         text = "Log in",
@@ -119,34 +136,79 @@ fun LoginScreen() {
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    TextField(
+                    Spacer(modifier = Modifier.height(50.dp))
+                    DefaultTextField(
+                        modifier = Modifier,
                         value = email,
+                        label = "Email",
+                        icon = Icons.Outlined.Email,
                         onValueChange = {
                             email = it
                         },
-                        label = { Text(text = "Email") }
+                        keyboardType = KeyboardType.Email
                     )
-                    TextField(
+                    Spacer(modifier = Modifier.height(20.dp))
+                    DefaultTextField(
+                        modifier = Modifier,
                         value = password,
+                        label = "Password",
+                        icon = Icons.Outlined.Lock,
                         onValueChange = {
                             password = it
                         },
-                        label = { Text(text = "Password") }
+                        keyboardType = KeyboardType.Password,
+                        hideText = true
                     )
-                    Button(onClick = {
+                    Spacer(modifier = Modifier.weight(1f))
+                    Box(modifier = Modifier.fillMaxWidth()){
+                        Button(modifier = Modifier
+                            .align(Alignment.Center)
+                            .width(250.dp)
+                            .height(55.dp),
+                            colors = ButtonDefaults.buttonColors(Color.Black)
+                            , onClick = {
 
-                    }) {
-                        Text(text = "Iniciar sesion")
+                        }) {
+                            Text(text = "Iniciar sesion", fontSize = 18.sp)
+                        }
                     }
-                    Row() {
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Row (modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically){
                         Spacer(
                             modifier = Modifier
-                                .width(25.dp)
+                                .width(30.dp)
                                 .height(1.dp)
-                                .background(Color.White)
+                                .background(Color.Black)
                         )
-                        
+                        Text(text = "O",
+                            modifier = Modifier.padding(horizontal = 10.dp),
+                            color = Color.Black,
+                            fontSize = 20.sp
+                        )
+                        Spacer(
+                            modifier = Modifier
+                                .width(30.dp)
+                                .height(1.dp)
+                                .background(Color.Black)
+                        )
                     }
+                    Spacer(modifier = Modifier.height(30.dp))
+
+                    Row (modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center){
+                        Text(text = "No tienes cuenta?",
+                            color = Color.Black,
+                            fontSize = 17.sp
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(text = "Registrate",
+                            color = Color.Black,
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(50.dp))
                 }
             }
         }
